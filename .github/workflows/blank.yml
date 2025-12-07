@@ -27,6 +27,18 @@ jobs:
         python-version: '3.13.9'
     - name: Install all necessary packages
       run: pip install jupyter lxml pandas requests beautifulsoup4 html5lib
+    - name: Debug notebook file
+      run: |
+        echo "Working directory:"
+        pwd
+        echo "Files in repo:"
+        ls -l
+        echo "Notebook details:"
+        ls -l steam_sales.ipynb || echo "steam_sales.ipynb not found"
+        echo "Size in bytes:"
+        wc -c steam_sales.ipynb || echo "wc failed"
+        echo "First 200 characters:"
+        head -c 200 steam_sales.ipynb || echo "head failed"
     - name: Scraping today's data
       run: jupyter nbconvert --to notebook --execute "steam_sales.ipynb" --stdout
     - name: Commit and push any changes
